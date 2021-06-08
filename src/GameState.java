@@ -1,3 +1,3 @@
 public enum GameState {
-    OVER,NOTOVER
+    PROGRESS,WON,DRAW
 }

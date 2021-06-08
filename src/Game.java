@@ -37,15 +37,27 @@ public class Game {
      *
      * @return false if Game OVER; TRUE  IF Game is still not finished
      */
-    public Boolean move(int row,int col){
-        if(row<1 || row>board.getSIZE() || col<1 || col>board.getSIZE() || !board.getAr()[row][col].equals("-")){
+    public boolean move(int row,int col) {
+        if (row < 1 || row > board.getSIZE() || col < 1 || col > board.getSIZE() || !board.getAr()[row][col].equals("-")) {
             System.out.println("INVALID MOVE");
-            return true;
+            return false;
         }
-        board.setAr(row,col,players.get(currentPlayerIndex).getChoice());
-        GameState state=board.gameState(players.get(currentPlayerIndex));
-        currentPlayerIndex = (currentPlayerIndex + 1)%players.size();
+        System.out.println("VALID MOVE");
+        board.setAr(row, col, players.get(currentPlayerIndex).getChoice());
+        return true;
+    }
+    public GameState state(){
+        GameState state=board.gameState();
         board.print();
-        return state != GameState.OVER;
+        if(state==GameState.WON){
+            System.out.println(players.get(currentPlayerIndex).getName()+"won the match");
+            return state;
+        }
+        if(state==GameState.DRAW){
+            System.out.println("Match Drawn");
+            return state;
+        }
+        currentPlayerIndex = (currentPlayerIndex + 1)%players.size();
+        return state;
     }
 }

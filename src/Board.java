@@ -35,56 +35,53 @@ public class Board {
             }
         }
     }
-    public GameState gameState(Player player){
-        if(winnerInRow(player)==GameState.OVER)
-            return GameState.OVER;
-        if(winnerInColumn(player)==GameState.OVER)
-            return GameState.OVER;
-        if(winnerInFirstDiagonal(player)==GameState.OVER)
-            return GameState.OVER;
-        if(winnerInSecondDiagonal(player)==GameState.OVER)
-            return GameState.OVER;
-        if(gameDrawn()==GameState.OVER)
-            return GameState.OVER;
-        return GameState.NOTOVER;
+    public GameState gameState(){
+        if(winnerInRow()==GameState.WON)
+            return GameState.WON;
+        if(winnerInColumn()==GameState.WON)
+            return GameState.WON;
+        if(winnerInFirstDiagonal()==GameState.WON)
+            return GameState.WON;
+        if(winnerInSecondDiagonal()==GameState.WON)
+            return GameState.WON;
+        if(gameDrawn()==GameState.DRAW)
+            return GameState.DRAW;
+        return GameState.PROGRESS;
     }
 
-    private GameState winnerInSecondDiagonal(Player player) {
+    private GameState winnerInSecondDiagonal() {
         String current=this.ar[1][SIZE];
         if(this.ar[1][SIZE].equals("-"))
-            return GameState.NOTOVER;
+            return GameState.PROGRESS;
         for(int i=1,j=SIZE;i<=SIZE && j>=1;i++,j--){
                 if(!current.equals(this.ar[i][j]) || ar[i][j].equals("-"))
-                    return GameState.NOTOVER;
+                    return GameState.PROGRESS;
         }
-        System.out.println(player.getName()+" Won the game");
-        return GameState.OVER;
+        return GameState.WON;
     }
 
     private GameState gameDrawn() {
         for(int i=1;i<=SIZE;i++){
             for(int j=1;j<=SIZE;j++)
                 if(this.ar[i][j].equals("-"))
-                    return GameState.NOTOVER;
+                    return GameState.PROGRESS;
         }
-        System.out.println("Game Draw");
-        return GameState.OVER;
+        return GameState.DRAW;
     }
 
-    private GameState winnerInFirstDiagonal(Player player) {
+    private GameState winnerInFirstDiagonal() {
         String current=this.ar[1][1];
         if(this.ar[1][1].equals("-"))
-            return GameState.NOTOVER;
+            return GameState.PROGRESS;
         for(int i=1;i<=SIZE;i++){
             if(!current.equals(this.ar[i][i]) || ar[i][i].equals("-")) {
-                return GameState.NOTOVER;
+                return GameState.PROGRESS;
             }
         }
-        System.out.println(player.getName()+" Won the game");
-        return GameState.OVER;
+        return GameState.WON;
     }
 
-    private GameState winnerInColumn(Player player) {
+    private GameState winnerInColumn() {
         for(int col=1;col<=SIZE;col++)
         {
             String current=ar[1][col];
@@ -96,14 +93,13 @@ public class Board {
                 }
             }
             if (winnerFound){
-                System.out.println(player.getName()+" Won the game");
-                return GameState.OVER;
+                return GameState.WON;
             }
         }
-        return GameState.NOTOVER;
+        return GameState.PROGRESS;
     }
 
-    private GameState winnerInRow(Player player) {
+    private GameState winnerInRow() {
         for(int row=1;row<=SIZE;row++)
         {
             String current=ar[row][1];
@@ -115,11 +111,10 @@ public class Board {
                 }
             }
             if (winnerFound){
-                System.out.println(player.getName()+" Won the game");
-                return GameState.OVER;
+                return GameState.WON;
             }
         }
-        return GameState.NOTOVER;
+        return GameState.PROGRESS;
     }
 
 }

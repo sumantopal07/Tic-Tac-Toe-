@@ -34,7 +34,11 @@ public class Driver {
         while(true){
             int row=sc.nextInt();
             int col= sc.nextInt();
-            if(!game.move(row, col))
+            boolean validMove = game.move(row,col);
+            if(!validMove)
+                continue;
+            GameState state=game.state();
+            if(state== GameState.WON || state== GameState.DRAW)
                 break;
         }
     }

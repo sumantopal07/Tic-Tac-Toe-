@@ -3,7 +3,7 @@ import java.util.*;
 public class Game {
     ArrayList<Player> players;
     Board board;
-    Set<String> pieces;
+    Set<String> pieces; //set is used to maintain unique piece of each player
     int currentPlayerIndex;
 
     Game(){
@@ -16,6 +16,7 @@ public class Game {
         return players;
     }
 
+    //to add players and pieces
     public Boolean setPlayerBuilder(Player player) {
         if(pieces.contains(player.getChoice()))
             return false;
@@ -45,8 +46,6 @@ public class Game {
         GameState state=board.gameState(players.get(currentPlayerIndex));
         currentPlayerIndex = (currentPlayerIndex + 1)%players.size();
         board.print();
-        if(state==GameState.OVER)
-            return false;
-        return true;
+        return state != GameState.OVER;
     }
 }
